@@ -15,6 +15,7 @@ namespace game
 
     class Game
     {
+    private:
         int width;
         int height;
 

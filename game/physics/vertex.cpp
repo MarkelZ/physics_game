@@ -1,4 +1,4 @@
-#include "pointparticle.hpp"
+#include "vertex.hpp"
 #include <cmath>
 
 namespace physics

@@ -1,24 +1,26 @@
 #pragma once
-#include "pointparticle.hpp"
+#include "vertex.hpp"
+// #include "vectormath.hpp"
 
 namespace physics
 {
     struct RigidLink
     {
     public:
-        PointParticle &p1;
-        PointParticle &p2;
+        Vertex &p1;
+        Vertex &p2;
 
-        double length;
-        double maxLength;
+        float length;
+        float maxLength;
         bool canBreak;
         bool isBroken;
 
-        RigidLink(PointParticle &p1, PointParticle &p2, bool canBreak);
-        RigidLink(PointParticle &p1, PointParticle &p2, double length, bool canBreak);
-        double getCurrentLength();
+        RigidLink(Vertex &p1, Vertex &p2, bool canBreak);
+        RigidLink(Vertex &p1, Vertex &p2, float length, bool canBreak);
+        float getCurrentLength();
+        float getCurrentLength2();
 
     private:
-        static constexpr double MAXLENCOEF = 1.75;
+        static constexpr float MAXLENCOEF = 1.75f;
     };
 }

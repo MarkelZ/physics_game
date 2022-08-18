@@ -3,14 +3,14 @@
 
 namespace physics
 {
-    RigidLink::RigidLink(PointParticle &p1, PointParticle &p2, bool canBreak)
+    RigidLink::RigidLink(Vertex &p1, Vertex &p2, bool canBreak)
         : p1(p1), p2(p2), length(length), canBreak(canBreak)
     {
         maxLength = length * MAXLENCOEF;
         isBroken = false;
     }
 
-    RigidLink::RigidLink(PointParticle &p1, PointParticle &p2, double length, bool canBreak)
+    RigidLink::RigidLink(Vertex &p1, Vertex &p2, float length, bool canBreak)
         : p1(p1), p2(p2), canBreak(canBreak)
     {
         length = getCurrentLength();
@@ -18,9 +18,15 @@ namespace physics
         isBroken = false;
     }
 
-    double RigidLink::getCurrentLength()
+    float RigidLink::getCurrentLength2()
     {
-        sf::Vector2f diff = p1.position - p2.position;
-        return std::sqrt(diff.x * diff.x + diff.y * diff.y);
+        auto diff = p1.position - p2.position;
+        return diff.x * diff.x + diff.y * diff.y;
+        // return vecm::dot(diff, diff);
+    }
+
+    float RigidLink::getCurrentLength()
+    {
+        return std::sqrt(getCurrentLength2());
     }
 }

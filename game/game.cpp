@@ -5,7 +5,7 @@ namespace game
     Game::Game(int width, int height)
         : width(width), height(height),
           debugwriter("content/freemono.ttf", 32, sf::Color::White),
-          input()
+          input(), simulation(width, height)
     {
         sf::ContextSettings settings;
         settings.antialiasingLevel = 8;
@@ -16,8 +16,8 @@ namespace game
         window->setFramerateLimit(TPS);
 
         // Testing!!
-        auto p1 = std::make_shared<physics::PointParticle>(sf::Vector2f(200.f, 100.f), false);
-        auto p2 = std::make_shared<physics::PointParticle>(sf::Vector2f(100.f, 120.f), false);
+        auto p1 = std::make_shared<physics::Vertex>(sf::Vector2f(200.f, 100.f), false);
+        auto p2 = std::make_shared<physics::Vertex>(sf::Vector2f(100.f, 120.f), false);
         auto ll = std::make_shared<physics::RigidLink>(*p1, *p2, true);
         simulation.points.push_back(p1);
         simulation.points.push_back(p2);
