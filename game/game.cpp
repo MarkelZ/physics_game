@@ -26,7 +26,6 @@ namespace game
 
     void Game::run()
     {
-        std::cout << "Hi from game!\n";
         while (window->isOpen())
         {
             update();
@@ -54,7 +53,11 @@ namespace game
                 break;
             }
         }
-        // verlet.update(SPT);
+
+        simulation.update(TPS);
+
+        // Game stuff here
+        // ...
     }
 
     void Game::draw()
