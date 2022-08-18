@@ -11,3 +11,12 @@ add_executable(game
     utils/debugwriter.cpp
     utils/input.cpp)
 target_link_libraries(game sfml-graphics sfml-audio)
+
+# Copy required files to build folder after building
+# https://thomas.trocha.com/blog/cmake--copy-files-after-build/
+add_custom_command(
+        TARGET game POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${PROJECT_SOURCE_DIR}/content
+            ${CMAKE_CURRENT_BINARY_DIR}/content
+)
