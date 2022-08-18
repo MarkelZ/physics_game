@@ -25,7 +25,7 @@ namespace game
         // std::vector<Particle> particles;
         std::vector<Entity> entities;
 
-        physics::Simluation simulation;
+        physics::Simulation simulation;
         utils::Debugwriter debugwriter;
         std::unique_ptr<sf::RenderWindow> window;
         utils::Input input;
