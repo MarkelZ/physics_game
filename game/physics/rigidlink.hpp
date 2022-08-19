@@ -7,16 +7,16 @@ namespace physics
     struct RigidLink
     {
     public:
-        Vertex &p1;
-        Vertex &p2;
+        Vertex &v1;
+        Vertex &v2;
 
         float length;
         float maxLength;
         bool canBreak;
         bool isBroken;
 
-        RigidLink(Vertex &p1, Vertex &p2, bool canBreak);
-        RigidLink(Vertex &p1, Vertex &p2, float length, bool canBreak);
+        RigidLink(Vertex &v1, Vertex &v2, bool canBreak = true);
+        RigidLink(Vertex &v1, Vertex &v2, float length, bool canBreak = true);
         float getCurrentLength();
         float getCurrentLength2();
 

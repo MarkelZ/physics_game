@@ -7,7 +7,7 @@ namespace physics
 {
     struct Shape
     {
-        std::vector<std::shared_ptr<Vertex>> points;
+        std::vector<std::shared_ptr<Vertex>> vertices;
         std::vector<std::shared_ptr<RigidLink>> links;
     };
 }

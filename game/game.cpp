@@ -15,13 +15,19 @@ namespace game
             sf::Style::Titlebar | sf::Style::Close, settings);
         window->setFramerateLimit(TPS);
 
-        // Testing!!
-        auto p1 = std::make_shared<physics::Vertex>(sf::Vector2f(200.f, 100.f), false);
-        auto p2 = std::make_shared<physics::Vertex>(sf::Vector2f(100.f, 120.f), false);
-        auto ll = std::make_shared<physics::RigidLink>(*p1, *p2, true);
-        simulation.points.push_back(p1);
-        simulation.points.push_back(p2);
-        simulation.links.push_back(ll);
+        // Triangle shape for testing physics
+        auto v1 = std::make_shared<physics::Vertex>(sf::Vector2f(100.f, 400.f), sf::Vector2f(10.f, -20.f));
+        auto v2 = std::make_shared<physics::Vertex>(sf::Vector2f(200.f, 400.f), sf::Vector2f(10.f, -20.f));
+        auto v3 = std::make_shared<physics::Vertex>(sf::Vector2f(150.f, 487.f), sf::Vector2f(0.f, -20.f));
+        auto l1 = std::make_shared<physics::RigidLink>(*v1, *v2);
+        auto l2 = std::make_shared<physics::RigidLink>(*v2, *v3);
+        auto l3 = std::make_shared<physics::RigidLink>(*v3, *v1);
+        simulation.vertices.push_back(v1);
+        simulation.vertices.push_back(v2);
+        simulation.vertices.push_back(v3);
+        simulation.links.push_back(l1);
+        simulation.links.push_back(l2);
+        simulation.links.push_back(l3);
     }
 
     void Game::run()
@@ -69,7 +75,7 @@ namespace game
         // Draw game stuff here
         sf::CircleShape circle(4.f, 16);
         circle.setFillColor(sf::Color::Green);
-        for (auto p : simulation.points)
+        for (auto p : simulation.vertices)
         {
             auto position = sf::Vector2f(p->position.x - 4.f, p->position.y - 4.f);
             circle.setPosition(position);
@@ -78,8 +84,8 @@ namespace game
 
         for (auto e : simulation.links)
         {
-            sf::Vertex line[] = {sf::Vertex(e->p1.position),
-                                 sf::Vertex(e->p2.position)};
+            sf::Vertex line[] = {sf::Vertex(e->v1.position),
+                                 sf::Vertex(e->v2.position)};
             window->draw(line, 2, sf::Lines);
         }
 

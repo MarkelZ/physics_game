@@ -27,8 +27,8 @@ namespace physics
         bool IsTouching(RigidLink link) const override
         {
             // https://mathworld.wolfram.com/Circle-LineIntersection.html
-            auto p1 = link.p1.position;
-            auto p2 = link.p2.position;
+            auto p1 = link.v1.position;
+            auto p2 = link.v2.position;
             auto diff = p2 - p1;
             // float dr2 = vecm::dot(diff, diff);
             float dr2 = diff.x * diff.x + diff.y * diff.y;
