@@ -15,8 +15,13 @@ namespace physics
 
         bool isFixed;
 
-        DynamicObject(sf::Vector2f position, sf::Vector2f prevpos, float gravityMul = 1.0f, float airFriction = 0.999f, bool isFixed = false)
+        DynamicObject(sf::Vector2f position, sf::Vector2f prevpos, float gravityMul = 1.0f,
+                      float airFriction = 0.999f, bool isFixed = false)
             : position(position), prevpos(prevpos),
               gravityMul(gravityMul), airFriction(airFriction), isFixed(isFixed) {}
+
+        void push(sf::Vector2f velocity);
+        void moveTo(sf::Vector2f position);
+        void moveBy(sf::Vector2f direction);
     };
 }

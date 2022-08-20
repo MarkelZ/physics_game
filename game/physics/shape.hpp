@@ -15,5 +15,9 @@ namespace physics
             : vertices(vertices), links(links) {}
 
         Shape(const char path[]);
+
+        void push(sf::Vector2f velocity);
+        void moveTo(sf::Vector2f position);
+        void moveBy(sf::Vector2f direction);
     };
 }

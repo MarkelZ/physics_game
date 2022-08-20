@@ -35,4 +35,27 @@ namespace physics
             i++;
         }
     }
+
+    void Shape::push(sf::Vector2f velocity)
+    {
+        for (auto v : vertices)
+        {
+            v->push(velocity);
+        }
+    }
+
+    void Shape::moveTo(sf::Vector2f position)
+    {
+        if (vertices.empty())
+            return;
+        moveBy(position - vertices[0]->position);
+    }
+
+    void Shape::moveBy(sf::Vector2f direction)
+    {
+        for (auto v : vertices)
+        {
+            v->moveBy(direction);
+        }
+    }
 }

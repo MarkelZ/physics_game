@@ -20,7 +20,7 @@ namespace physics
         float height;
         float gravity;
 
-        Simulation(float width, float height, float gravity = .5f)
+        Simulation(float width, float height, float gravity = 1.0f)
             : width(width), height(height), gravity(gravity)
         {
         }
