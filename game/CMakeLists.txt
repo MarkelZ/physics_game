@@ -4,6 +4,7 @@ add_executable(game
     entity.cpp
     physics/dynamicobject.cpp
     physics/rigidlink.cpp
+    physics/shape.cpp
     physics/simulation.cpp
     physics/trigger.cpp
     physics/triggerarea.cpp
@@ -19,4 +20,11 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${PROJECT_SOURCE_DIR}/content
     ${CMAKE_CURRENT_BINARY_DIR}/content
+)
+
+add_custom_command(
+    TARGET game POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/models
+    ${CMAKE_CURRENT_BINARY_DIR}/models
 )

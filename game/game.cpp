@@ -16,18 +16,21 @@ namespace game
         window->setFramerateLimit(TPS);
 
         // Triangle shape for testing physics
-        auto v1 = std::make_shared<physics::Vertex>(sf::Vector2f(100.f, 400.f), sf::Vector2f(10.f, -20.f));
-        auto v2 = std::make_shared<physics::Vertex>(sf::Vector2f(200.f, 400.f), sf::Vector2f(10.f, -20.f));
-        auto v3 = std::make_shared<physics::Vertex>(sf::Vector2f(150.f, 487.f), sf::Vector2f(0.f, -20.f));
-        auto l1 = std::make_shared<physics::RigidLink>(*v1, *v2);
-        auto l2 = std::make_shared<physics::RigidLink>(*v2, *v3);
-        auto l3 = std::make_shared<physics::RigidLink>(*v3, *v1);
-        simulation.vertices.push_back(v1);
-        simulation.vertices.push_back(v2);
-        simulation.vertices.push_back(v3);
-        simulation.links.push_back(l1);
-        simulation.links.push_back(l2);
-        simulation.links.push_back(l3);
+        // auto v1 = std::make_shared<physics::Vertex>(sf::Vector2f(100.f, 400.f), sf::Vector2f(10.f, -20.f));
+        // auto v2 = std::make_shared<physics::Vertex>(sf::Vector2f(200.f, 400.f), sf::Vector2f(10.f, -20.f));
+        // auto v3 = std::make_shared<physics::Vertex>(sf::Vector2f(150.f, 487.f), sf::Vector2f(0.f, -20.f));
+        // auto l1 = std::make_shared<physics::RigidLink>(*v1, *v2);
+        // auto l2 = std::make_shared<physics::RigidLink>(*v2, *v3);
+        // auto l3 = std::make_shared<physics::RigidLink>(*v3, *v1);
+        // simulation.vertices.push_back(v1);
+        // simulation.vertices.push_back(v2);
+        // simulation.vertices.push_back(v3);
+        // simulation.links.push_back(l1);
+        // simulation.links.push_back(l2);
+        // simulation.links.push_back(l3);
+
+        physics::Shape ragdoll("models/ragdoll.toml");
+        simulation.addShape(ragdoll);
     }
 
     void Game::run()

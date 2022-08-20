@@ -1,3 +1,7 @@
-[geometry]
-vertices = [[0, 0], [100, 0], [50, 87]]
-edges = [[0, 1], [1, 2], [2, 0]]
+[vertices]
+xpos = [0, 100, 50]
+ypos = [0, 0, 87]
+
+[links]
+left = [0, 1, 2]
+right = [1, 2, 0]
