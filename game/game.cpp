@@ -53,10 +53,24 @@ namespace game
             }
         }
 
-        simulation.update(TPS);
+        simulation.update(SPT);
 
         // Game stuff here
-        // ...
+        if (input.actionPressed(utils::Input::Action::Up))
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                auto p = std::make_shared<SparkParticle>(
+                    this, sf::Vector2f(300.f, 300.f + i * 10), sf::Vector2f(1.f, 0.f));
+                particles.push_back(p);
+                simulation.addDynamicObject(p->dynObject);
+            }
+        }
+
+        for (auto p : particles)
+        {
+            p->update(SPT);
+        }
     }
 
     void Game::draw()
@@ -68,28 +82,34 @@ namespace game
         // Draw game stuff here
         sf::CircleShape circle(4.f, 16);
         circle.setFillColor(sf::Color::Green);
-        for (auto p : simulation.vertices)
+        for (auto v : simulation.vertices)
         {
-            auto position = sf::Vector2f(p->position.x - 4.f, p->position.y - 4.f);
+            auto position = sf::Vector2f(v->position.x - 4.f, v->position.y - 4.f);
             circle.setPosition(position);
             window->draw(circle);
         }
 
-        for (auto e : simulation.links)
+        for (auto l : simulation.links)
         {
-            if (e->isBroken)
+            if (l->isBroken)
                 continue;
 
-            sf::Vertex line[] = {sf::Vertex(e->v1.position),
-                                 sf::Vertex(e->v2.position)};
+            sf::Vertex line[] = {sf::Vertex(l->v1.position),
+                                 sf::Vertex(l->v2.position)};
             window->draw(line, 2, sf::Lines);
+        }
+
+        for (auto p : particles)
+        {
+            p->draw(*window);
         }
 
         // Debug text
         float drawTime = elapsedTime() - updateTime;
         debugwriter.clear();
-        debugwriter.stream << "update: " << std::fixed << std::setprecision(1) << updateTime << " ms\n";
-        debugwriter.stream << "draw:   " << std::fixed << std::setprecision(1) << drawTime << " ms\n";
+        debugwriter.stream << "Update: " << std::fixed << std::setprecision(1) << updateTime << " ms\n";
+        debugwriter.stream << "Draw:   " << std::fixed << std::setprecision(1) << drawTime << " ms\n";
+        debugwriter.stream << "Entities:   " << particles.size() << "\n";
         debugwriter.draw(*window);
 
         // This displays window on screen (not part of debug)

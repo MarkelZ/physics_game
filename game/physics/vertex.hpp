@@ -9,14 +9,11 @@ namespace physics
         float collideFriction;
 
         Vertex(sf::Vector2f position, float elasticity = .4f, float collideFriction = 0.9f)
-            : DynamicObject(sf::Vector2f(position.x, position.y),
-                            sf::Vector2f(position.x, position.y)),
+            : DynamicObject(sf::Vector2f(position.x, position.y)),
               elasticity(elasticity), collideFriction(collideFriction) {}
 
-        Vertex(sf::Vector2f position, sf::Vector2f velocity,
-               float elasticity = .4f, float collideFriction = 0.9f)
-            : DynamicObject(sf::Vector2f(position.x, position.y),
-                            sf::Vector2f(position.x - velocity.x, position.y - velocity.y)),
+        Vertex(sf::Vector2f position, sf::Vector2f velocity, float elasticity = .4f, float collideFriction = 0.9f)
+            : DynamicObject(sf::Vector2f(position.x, position.y), sf::Vector2f(velocity.x, velocity.y)),
               elasticity(elasticity), collideFriction(collideFriction) {}
     };
 }

@@ -5,8 +5,8 @@
 #include "utils/input.hpp"
 #include "utils/debugwriter.hpp"
 #include "entity.hpp"
+#include "particleeffect.hpp"
 #include "physics/simulation.hpp"
-// #include "physics/rigidbody.hpp"
 
 namespace game
 {
@@ -22,9 +22,8 @@ namespace game
         const int TPS = 60;
         const float SPT = 1.0f / TPS;
 
-        // std::vector<Ragdoll> ragdolls;
-        // std::vector<Particle> particles;
-        std::vector<Entity> entities;
+        // std::vector<std::shared_ptr<Entity>> entities;
+        std::vector<std::shared_ptr<ParticleEffect>> particles;
 
         physics::Simulation simulation;
         utils::Debugwriter debugwriter;

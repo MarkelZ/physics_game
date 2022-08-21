@@ -1,7 +1,10 @@
 add_executable(game
     main.cpp
-    game.cpp
+    bomb.cpp
     entity.cpp
+    game.cpp
+    particleeffect.cpp
+    ragdoll.cpp
     physics/dynamicobject.cpp
     physics/rigidlink.cpp
     physics/shape.cpp

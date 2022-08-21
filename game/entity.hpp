@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "physics/dynamicobject.hpp"
 
 namespace game
 {
@@ -9,11 +10,9 @@ namespace game
     class Entity
     {
     public:
-        Entity(Game *game, sf::Vector2f position);
+        Entity(Game *game) : game(game) {}
 
-        sf::Vector2f position; // should be dynobject
-
-        virtual void update(float tdelta) const = 0;
+        virtual void update(float tdelta) = 0;
         virtual void draw(sf::RenderWindow &window) const = 0;
 
     private:
