@@ -25,10 +25,11 @@ make
 
 ## Running
 
-Inside the build folder the game can be run with:
+Inside the build directory the game can be run with:
 
 ```shell
-./game/game
+cd game
+./game
 ```
 
 ## License
