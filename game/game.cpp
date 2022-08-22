@@ -5,7 +5,7 @@ namespace game
 {
     Game::Game(int width, int height)
         : width(width), height(height),
-          debugwriter("content/freemono.ttf", 32, sf::Color::White),
+          debugwriter("content/freemono.ttf", 24, sf::Color::White),
           input(), simulation(width, height)
     {
         sf::ContextSettings settings;

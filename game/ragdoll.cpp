@@ -2,14 +2,22 @@
 
 namespace game
 {
+
+    void Ragdoll::onLinkBroken(std::shared_ptr<physics::RigidLink> link)
+    {
+        // spawn blood
+        std::cout << "Link broken in ragdoll with x position ";
+        std::cout << shape->vertices[0]->position.x << "\n";
+    }
+
     Ragdoll::Ragdoll(Game *game, sf::Vector2f position)
         : Entity(game), shape(std::make_shared<physics::Shape>("models/ragdoll.toml"))
     {
         shape->moveTo(position);
-        // for (auto l : shape->links)
-        // {
-        //     l->onLinkBroken = onLinkBroken;
-        // }
+        for (auto l : shape->links)
+        {
+            l->onLinkBroken = std::bind(&Ragdoll::onLinkBroken, this, std::placeholders::_1);
+        }
     }
 
     void Ragdoll::update(float tdelta)
@@ -28,10 +36,5 @@ namespace game
                                  sf::Vertex(l->v2.position)};
             window.draw(line, 2, sf::Lines);
         }
-    }
-
-    void onLinkBroken(physics::RigidLink link)
-    {
-        // spawn blood
     }
 }

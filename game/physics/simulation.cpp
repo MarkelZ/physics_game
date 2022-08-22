@@ -51,6 +51,14 @@ namespace physics
         }
     }
 
+    void Simulation::updateTriggers(float tdelta)
+    {
+        for (auto t : triggers)
+        {
+            updateDynamicObject(tdelta, t);
+        }
+    }
+
     void Simulation::updateDynamicObject(float tdelta, std::shared_ptr<DynamicObject> dobj)
     {
         if (dobj->isFixed)
@@ -113,5 +121,12 @@ namespace physics
 
     void Simulation::checkTriggers(float tdelta)
     {
+        for (auto t : triggers)
+        {
+            if (!t->enabled)
+                continue;
+
+            // check for collisions
+        }
     }
 }

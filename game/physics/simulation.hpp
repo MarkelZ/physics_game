@@ -21,9 +21,7 @@ namespace physics
         float gravity;
 
         Simulation(float width, float height, float gravity = 1.0f)
-            : width(width), height(height), gravity(gravity)
-        {
-        }
+            : width(width), height(height), gravity(gravity) {}
 
         void update(float tdelta);
         void addShape(Shape &shape);
@@ -35,8 +33,9 @@ namespace physics
         int upd_iters = 2;
 
         void updateDynamicObjects(float tdelta);
-        void updateDynamicObject(float tdelta, std::shared_ptr<DynamicObject> dobj);
         void updateVertices(float tdelta);
+        void updateTriggers(float tdelta);
+        void updateDynamicObject(float tdelta, std::shared_ptr<DynamicObject> dobj);
         void updateLinks(float tdelta);
         void constrainVertices(float tdelta);
         void checkTriggers(float tdelta);

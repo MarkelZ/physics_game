@@ -7,8 +7,8 @@ namespace physics
 {
     struct Trigger : DynamicObject
     {
-        TriggerArea *area;
+        // TriggerArea *area;
         bool enabled;
-        std::function<void(float)> onCollision;
+        std::function<void()> onCollision = []() {};
     };
 }
