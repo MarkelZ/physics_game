@@ -80,6 +80,7 @@ namespace physics
             if (l->canBreak && dist >= l->maxLength)
             {
                 l->isBroken = true;
+                l->onLinkBroken(l);
                 // TODO: pop links[i]
             }
 

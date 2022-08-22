@@ -8,6 +8,7 @@ namespace physics
     {
         maxLength = length * MAXLENCOEF;
         isBroken = false;
+        onLinkBroken = [](std::shared_ptr<RigidLink> _) {};
     }
 
     RigidLink::RigidLink(Vertex &v1, Vertex &v2, float length, bool canBreak)

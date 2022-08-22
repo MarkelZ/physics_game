@@ -6,6 +6,10 @@ namespace game
         : Entity(game), shape(std::make_shared<physics::Shape>("models/ragdoll.toml"))
     {
         shape->moveTo(position);
+        // for (auto l : shape->links)
+        // {
+        //     l->onLinkBroken = onLinkBroken;
+        // }
     }
 
     void Ragdoll::update(float tdelta)

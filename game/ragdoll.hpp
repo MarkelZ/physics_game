@@ -19,7 +19,6 @@ namespace game
         void draw(sf::RenderWindow &window) const override;
 
     private:
-        // std::function<void(physics::RigidLink)> onLinkBroken; // this should go on link
-        void onLinkBroken(physics::RigidLink link);
+        void onLinkBroken(std::shared_ptr<physics::RigidLink> link);
     };
 }
