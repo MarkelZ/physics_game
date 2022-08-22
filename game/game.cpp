@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include <cstdlib>
 
 namespace game
 {
@@ -14,13 +15,6 @@ namespace game
             sf::VideoMode(width, height), "Physics Demo",
             sf::Style::Titlebar | sf::Style::Close, settings);
         window->setFramerateLimit(TPS);
-
-        // Code for testing the physics
-        physics::Shape ragdoll("models/ragdoll.toml");
-        ragdoll.push(sf::Vector2f(5.f, -32.f));
-        ragdoll.vertices[0]->prevpos.x = 0.f; // give some spin to ragdoll
-        ragdoll.moveTo(sf::Vector2f(400.f, 500.f));
-        simulation.addShape(ragdoll);
     }
 
     void Game::run()
@@ -30,6 +24,16 @@ namespace game
             update();
             draw();
         }
+    }
+
+    void Game::addDynamicObject(std::shared_ptr<physics::DynamicObject> dynObj)
+    {
+        simulation.addDynamicObject(dynObj);
+    }
+
+    void Game::addShape(physics::Shape &shape)
+    {
+        simulation.addShape(shape);
     }
 
     void Game::update()
@@ -67,9 +71,25 @@ namespace game
             }
         }
 
+        if (input.actionPressed(utils::Input::Action::Right))
+        {
+            auto r = std::make_shared<Ragdoll>(this, sf::Vector2f(0.f, 400.f));
+            float speed = 1.f + 2.f * (rand() / (static_cast<float>(RAND_MAX)));
+            float spin = 5.f + 10.f * (rand() / (static_cast<float>(RAND_MAX)));
+            r->shape->push(speed * sf::Vector2f(5.f, -10.f));
+            r->shape->vertices[0]->prevpos.x -= spin; // give some spin to ragdoll
+            ragdolls.push_back(r);
+            simulation.addShape(*r->shape);
+        }
+
         for (auto p : particles)
         {
             p->update(SPT);
+        }
+
+        for (auto r : ragdolls)
+        {
+            r->update(SPT);
         }
     }
 
@@ -79,37 +99,29 @@ namespace game
 
         window->clear();
 
-        // Draw game stuff here
-        sf::CircleShape circle(4.f, 16);
-        circle.setFillColor(sf::Color::Green);
-        for (auto v : simulation.vertices)
-        {
-            auto position = sf::Vector2f(v->position.x - 4.f, v->position.y - 4.f);
-            circle.setPosition(position);
-            window->draw(circle);
-        }
-
-        for (auto l : simulation.links)
-        {
-            if (l->isBroken)
-                continue;
-
-            sf::Vertex line[] = {sf::Vertex(l->v1.position),
-                                 sf::Vertex(l->v2.position)};
-            window->draw(line, 2, sf::Lines);
-        }
-
         for (auto p : particles)
         {
             p->draw(*window);
         }
 
+        for (auto r : ragdolls)
+        {
+            r->draw(*window);
+        }
+
         // Debug text
         float drawTime = elapsedTime() - updateTime;
         debugwriter.clear();
-        debugwriter.stream << "Update: " << std::fixed << std::setprecision(1) << updateTime << " ms\n";
+        debugwriter.stream << "Press D or Right to spawn ragdoll.\n";
+        debugwriter.stream << "Press W or Up to spawn particles.\n";
+
+        debugwriter.stream << "RigidLinks:   " << simulation.links.size() << ". ";
+        debugwriter.stream << "Vertices:   " << simulation.vertices.size() << ". ";
+        debugwriter.stream << "Particles:   " << particles.size() << "\n";
+
+        debugwriter.stream << "Update: " << std::fixed << std::setprecision(1) << updateTime << " ms. ";
         debugwriter.stream << "Draw:   " << std::fixed << std::setprecision(1) << drawTime << " ms\n";
-        debugwriter.stream << "Entities:   " << particles.size() << "\n";
+
         debugwriter.draw(*window);
 
         // This displays window on screen (not part of debug)

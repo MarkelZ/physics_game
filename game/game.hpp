@@ -7,6 +7,7 @@
 #include "entity.hpp"
 #include "particleeffect.hpp"
 #include "physics/simulation.hpp"
+#include "ragdoll.hpp"
 
 namespace game
 {
@@ -24,6 +25,7 @@ namespace game
 
         // std::vector<std::shared_ptr<Entity>> entities;
         std::vector<std::shared_ptr<ParticleEffect>> particles;
+        std::vector<std::shared_ptr<Ragdoll>> ragdolls;
 
         physics::Simulation simulation;
         utils::Debugwriter debugwriter;
@@ -40,5 +42,8 @@ namespace game
     public:
         Game(int width, int height);
         void run();
+
+        void addDynamicObject(std::shared_ptr<physics::DynamicObject> dynObj);
+        void addShape(physics::Shape &shape);
     };
 }
