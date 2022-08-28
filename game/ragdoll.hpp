@@ -8,7 +8,7 @@ namespace game
 {
     class Game;
 
-    class Ragdoll : Entity
+    class Ragdoll : public Entity
     {
     public:
         std::shared_ptr<physics::Shape> shape; // make private

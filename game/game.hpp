@@ -23,9 +23,7 @@ namespace game
         const int TPS = 60;
         const float SPT = 1.0f / TPS;
 
-        // std::vector<std::shared_ptr<Entity>> entities;
-        std::vector<std::shared_ptr<ParticleEffect>> particles;
-        std::vector<std::shared_ptr<Ragdoll>> ragdolls;
+        std::vector<Entity *> entities;
 
         physics::Simulation simulation;
         utils::Debugwriter debugwriter;
