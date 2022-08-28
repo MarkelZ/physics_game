@@ -1,13 +1,19 @@
 #include "ragdoll.hpp"
+#include "particleeffect.hpp"
+#include "game.hpp"
 
 namespace game
 {
 
     void Ragdoll::onLinkBroken(std::shared_ptr<physics::RigidLink> link)
     {
-        // spawn blood
-        std::cout << "Link broken in ragdoll with x position ";
-        std::cout << shape->vertices[0]->position.x << "\n";
+        // spawn link broken partiles
+        for (int _ = 0; _ < 16; _++)
+        {
+            auto p = new BreakParticle(game, link->v1.position, link->v2.position);
+            game->addEntity(p);
+            game->addDynamicObject(p->dynObject);
+        }
     }
 
     Ragdoll::Ragdoll(Game *game, sf::Vector2f position)

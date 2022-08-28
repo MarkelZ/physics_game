@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include "particleeffect.hpp"
 #include "game.hpp"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 namespace game
 {
@@ -76,5 +78,24 @@ namespace game
 
         float saturation = rfloat(0.5f, 1.f);
         color1 = colmul(saturation, sf::Color(160, 0, 255, 255), false);
+    }
+
+    BreakParticle::BreakParticle(Game *game, sf::Vector2f p1, sf::Vector2f p2)
+        : ParticleEffect(game, NULL, sf::Color(255, 64, 64, 255), sf::Color(0, 0, 0, 255), 1.f, rfloat(1.f, 2.f))
+    {
+        // pick random point between p1 and p2
+        float alpha = rfloat(0.f, 1.f);
+        sf::Vector2f position = p1 * alpha + p2 * (1 - alpha);
+
+        // random direction and speed of initial velocity
+        float angle = rfloat(0.f, 360.f); // rfloat(0.f, 2.f * M_PI_2f32);
+        sf::Vector2f direction(cos(angle), sin(angle));
+        float speed = rfloat(15.f, 20.f);
+        sf::Vector2f velocity(speed * cos(angle), speed * sin(angle));
+
+        dynObject = std::make_shared<physics::DynamicObject>(position, velocity);
+
+        float saturation2 = rfloat(0.f, 1.f);
+        color2 = colmul(saturation2, color1, false);
     }
 }

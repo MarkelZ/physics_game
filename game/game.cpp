@@ -36,6 +36,11 @@ namespace game
         simulation.addShape(shape);
     }
 
+    void Game::addEntity(Entity *entity)
+    {
+        entities.push_back(entity);
+    }
+
     void Game::update()
     {
         restartTimer();

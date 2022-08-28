@@ -15,7 +15,7 @@ namespace game
         virtual void update(float tdelta) = 0;
         virtual void draw(sf::RenderWindow &window) const = 0;
 
-    private:
+    protected:
         Game *game;
     };
 }

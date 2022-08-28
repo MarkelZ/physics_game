@@ -38,4 +38,10 @@ namespace game
     public:
         SparkParticle(Game *game, sf::Vector2f position, sf::Vector2f direction);
     };
+
+    class BreakParticle : public ParticleEffect
+    {
+    public:
+        BreakParticle(Game *game, sf::Vector2f p1, sf::Vector2f p2);
+    };
 }

@@ -23,10 +23,6 @@ namespace game
         const int TPS = 60;
         const float SPT = 1.0f / TPS;
 
-        std::vector<Entity *> entities;
-
-        physics::Simulation simulation;
-        utils::Debugwriter debugwriter;
         std::unique_ptr<sf::RenderWindow> window;
         utils::Input input;
 
@@ -38,10 +34,16 @@ namespace game
         float elapsedTime();
 
     public:
+        std::vector<Entity *> entities;
+
+        physics::Simulation simulation;
+        utils::Debugwriter debugwriter;
+
         Game(int width, int height);
         void run();
 
         void addDynamicObject(std::shared_ptr<physics::DynamicObject> dynObj);
         void addShape(physics::Shape &shape);
+        void addEntity(Entity *entity);
     };
 }
