@@ -11,6 +11,7 @@ add_executable(game
     physics/simulation.cpp
     physics/trigger.cpp
     physics/triggerarea.cpp
+    physics/vectormath.cpp
     physics/vertex.cpp
     utils/debugwriter.cpp
     utils/input.cpp)

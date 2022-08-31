@@ -22,7 +22,8 @@ namespace game
         // THIS IS DEBUG!!!
         // trigger->position = game->input.getMouseCurrentPosition();
 
-        circle.setPosition(trigger->position);
+        auto radius = circle.getRadius();
+        circle.setPosition(trigger->position.x - radius, trigger->position.y - radius);
     }
 
     void Bomb::draw(sf::RenderWindow &window) const

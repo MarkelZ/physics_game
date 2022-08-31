@@ -1,7 +1,9 @@
 #pragma once
+#include <cmath>
 #include "vertex.hpp"
 #include "rigidlink.hpp"
-// #include "vectormath.hpp"
+#include "vectormath.hpp"
+#include <iostream>
 
 namespace physics
 {
@@ -17,46 +19,14 @@ namespace physics
         CircleArea(sf::Vector2f position, float radius)
             : position(position), radius(radius), radius2(radius * radius) {}
 
-        bool IsTouching(std::shared_ptr<Vertex> vertex) const override
-        {
-            sf::Vector2f diff = position - vertex->position;
-            // return vecm::dot(diff, diff) <= radius2;
-            return diff.x * diff.x + diff.y * diff.y <= radius2;
-        }
+        bool IsTouching(std::shared_ptr<Vertex> vertex) const override;
+        bool IsTouching(std::shared_ptr<RigidLink> link) const override;
 
-        bool IsTouching(std::shared_ptr<RigidLink> link) const override
-        {
-            // https://mathworld.wolfram.com/Circle-LineIntersection.html
-            auto p1 = link->v1.position;
-            auto p2 = link->v2.position;
-            auto diff = p2 - p1;
-            // float dr2 = vecm::dot(diff, diff);
-            float dr2 = diff.x * diff.x + diff.y * diff.y;
-            float D = p1.x * p2.y - p2.x * p1.y;
-            return radius2 * dr2 - D * D >= 0;
-        }
-
-        sf::Vector2f getPosition()
-        {
-            return position;
-        }
-        void setPosition(sf::Vector2f position)
-        {
-            this->position = position;
-        }
-        float getRadius()
-        {
-            return radius;
-        }
-        void setRadius(float radius)
-        {
-            this->radius = radius;
-            radius2 = radius * radius;
-        }
-        float getRadius2()
-        {
-            return radius2;
-        }
+        sf::Vector2f getPosition();
+        void setPosition(sf::Vector2f position);
+        float getRadius();
+        void setRadius(float radius);
+        float getRadius2();
 
     private:
         sf::Vector2f position;
