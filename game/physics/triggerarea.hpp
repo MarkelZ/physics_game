@@ -7,8 +7,8 @@ namespace physics
 {
     struct TriggerArea
     {
-        virtual bool IsTouching(Vertex vertex) const = 0;
-        virtual bool IsTouching(RigidLink link) const = 0;
+        virtual bool IsTouching(std::shared_ptr<Vertex> vertex) const = 0;
+        virtual bool IsTouching(std::shared_ptr<RigidLink> link) const = 0;
     };
 
     struct CircleArea : TriggerArea
@@ -17,18 +17,18 @@ namespace physics
         CircleArea(sf::Vector2f position, float radius)
             : position(position), radius(radius), radius2(radius * radius) {}
 
-        bool IsTouching(Vertex vertex) const override
+        bool IsTouching(std::shared_ptr<Vertex> vertex) const override
         {
-            sf::Vector2f diff = position - vertex.position;
+            sf::Vector2f diff = position - vertex->position;
             // return vecm::dot(diff, diff) <= radius2;
             return diff.x * diff.x + diff.y * diff.y <= radius2;
         }
 
-        bool IsTouching(RigidLink link) const override
+        bool IsTouching(std::shared_ptr<RigidLink> link) const override
         {
             // https://mathworld.wolfram.com/Circle-LineIntersection.html
-            auto p1 = link.v1.position;
-            auto p2 = link.v2.position;
+            auto p1 = link->v1.position;
+            auto p2 = link->v2.position;
             auto diff = p2 - p1;
             // float dr2 = vecm::dot(diff, diff);
             float dr2 = diff.x * diff.x + diff.y * diff.y;

@@ -19,6 +19,6 @@ namespace game
 
     protected:
         sf::CircleShape circle;
-        static constexpr float RADIUS = 16.f;
+        static constexpr float RADIUS = 100.f;
     };
 }

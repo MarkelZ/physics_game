@@ -7,9 +7,9 @@ namespace physics
 {
     struct Trigger : DynamicObject
     {
-        // TriggerArea *area;
+        TriggerArea *area;
         bool enabled;
-        std::function<void()> onCollision = []() {};
+        std::function<void(std::shared_ptr<RigidLink>)> onCollision = [](std::shared_ptr<RigidLink> _) {};
 
         Trigger(sf::Vector2f position, bool enabled = true)
             : DynamicObject(sf::Vector2f(position.x, position.y)),
@@ -19,5 +19,13 @@ namespace physics
             : DynamicObject(sf::Vector2f(position.x, position.y),
                             sf::Vector2f(velocity.x, velocity.y)),
               enabled(enabled) {}
+
+        ~Trigger()
+        {
+            if (area)
+            {
+                delete area;
+            }
+        }
     };
 }

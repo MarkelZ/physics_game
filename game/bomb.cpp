@@ -9,8 +9,12 @@ namespace game
     {
         trigger = std::make_shared<physics::Trigger>(position, velocity);
         trigger->onCollision = std::bind(&Bomb::explode, this);
+        trigger->area = new physics::CircleArea(position, RADIUS);
 
         circle.setFillColor(sf::Color(255, 128, 255, 255));
+
+        // TMP
+        trigger->gravityMul = 0.f;
     }
 
     void Bomb::update(float tdelta)

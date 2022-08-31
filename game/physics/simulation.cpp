@@ -32,12 +32,13 @@ namespace physics
     {
         updateDynamicObjects(tdelta);
         updateVertices(tdelta);
+        updateTriggers(tdelta);
         for (int _ = 0; _ < upd_iters; _++)
         {
             updateLinks(tdelta);
             constrainVertices(tdelta);
-            checkTriggers(tdelta);
         }
+        checkTriggers(tdelta);
     }
 
     void Simulation::updateDynamicObjects(float tdelta)
@@ -131,7 +132,21 @@ namespace physics
             if (!t->enabled)
                 continue;
 
-            // check for collisions
+            for (auto l : links)
+            {
+                // TEMP
+                auto v1 = std::make_shared<Vertex>(l->v1.position);
+                auto v2 = std::make_shared<Vertex>(l->v2.position);
+                if (t->area->IsTouching(v1) || t->area->IsTouching(v2))
+                {
+                    t->onCollision(l);
+                }
+
+                // if (t->area->IsTouching(l))
+                // {
+                //     t->onCollision(l);
+                // }
+            }
         }
     }
 }
