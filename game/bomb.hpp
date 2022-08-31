@@ -5,7 +5,7 @@
 
 namespace game
 {
-    class Bomb : Entity
+    class Bomb : public Entity
     {
     public:
         std::shared_ptr<physics::Trigger> trigger;
@@ -16,5 +16,9 @@ namespace game
         void draw(sf::RenderWindow &window) const override;
 
         void explode();
+
+    protected:
+        sf::CircleShape circle;
+        static constexpr float RADIUS = 16.f;
     };
 }

@@ -23,6 +23,11 @@ namespace physics
         dynobjects.push_back(dynobj);
     }
 
+    void Simulation::addTrigger(std::shared_ptr<Trigger> trigger)
+    {
+        triggers.push_back(trigger);
+    }
+
     void Simulation::update(float tdelta)
     {
         updateDynamicObjects(tdelta);

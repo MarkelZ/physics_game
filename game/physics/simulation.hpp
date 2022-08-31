@@ -28,6 +28,7 @@ namespace physics
         void addVertex(std::shared_ptr<Vertex> vertex);
         void addLink(std::shared_ptr<RigidLink> link);
         void addDynamicObject(std::shared_ptr<DynamicObject> dynobj);
+        void addTrigger(std::shared_ptr<Trigger> trigger);
 
     private:
         int upd_iters = 2;

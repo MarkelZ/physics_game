@@ -86,6 +86,13 @@ namespace game
             simulation.addShape(*r->shape);
         }
 
+        if (input.actionPressed(utils::Input::Action::Left))
+        {
+            auto bomb = new Bomb(this, sf::Vector2f(600.f, 100.f), sf::Vector2f());
+            entities.push_back(bomb);
+            simulation.addTrigger(bomb->trigger);
+        }
+
         for (auto e : entities)
         {
             e->update(SPT);
@@ -110,8 +117,9 @@ namespace game
         debugwriter.stream << "Press W or Up to spawn particles.\n";
 
         debugwriter.stream << "RigidLinks:   " << simulation.links.size() << "; ";
-        debugwriter.stream << "Vertices:   " << simulation.vertices.size() << "; ";
-        debugwriter.stream << "Dynamic obj.:   " << simulation.dynobjects.size() << "\n";
+        debugwriter.stream << "Vertices:   " << simulation.vertices.size() << "\n";
+        debugwriter.stream << "Dynamic obj.:   " << simulation.dynobjects.size() << "; ";
+        debugwriter.stream << "Triggers:   " << simulation.triggers.size() << "\n";
 
         debugwriter.stream << "Update: " << std::fixed << std::setprecision(1) << updateTime << " ms; ";
         debugwriter.stream << "Draw:   " << std::fixed << std::setprecision(1) << drawTime << " ms\n";

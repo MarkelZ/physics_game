@@ -8,6 +8,7 @@
 #include "particleeffect.hpp"
 #include "physics/simulation.hpp"
 #include "ragdoll.hpp"
+#include "bomb.hpp"
 
 namespace game
 {
