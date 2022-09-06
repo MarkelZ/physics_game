@@ -46,5 +46,7 @@ namespace game
         void addDynamicObject(std::shared_ptr<physics::DynamicObject> dynObj);
         void addShape(physics::Shape &shape);
         void addEntity(Entity *entity);
+        int getWidth();
+        int getHeight();
     };
 }

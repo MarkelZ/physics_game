@@ -45,19 +45,6 @@ namespace physics
         return min_dist <= radius && max_dist >= radius;
     }
 
-    // bool CircleArea::IsTouching(std::shared_ptr<RigidLink> link) const override
-    // {
-    //     // https://mathworld.wolfram.com/Circle-LineIntersection.html
-    //
-    //     auto p1 = link->v1.position - position;
-    //     auto p2 = link->v2.position - position;
-    //
-    //     auto d = p2 - p1;
-    //     float dr2 = vecm::dot(d, d);
-    //     float D = p1.x * p2.y - p2.x * p1.y;
-    //     return (radius2 * dr2 - D * D) >= 0;
-    // }
-
     sf::Vector2f CircleArea::getPosition()
     {
         return position;

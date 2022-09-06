@@ -41,6 +41,9 @@ namespace game
         entities.push_back(entity);
     }
 
+    int Game::getWidth() { return width; }
+    int Game::getHeight() { return height; }
+
     void Game::update()
     {
         restartTimer();
@@ -88,7 +91,8 @@ namespace game
 
         if (input.actionPressed(utils::Input::Action::Left))
         {
-            auto bomb = new Bomb(this, sf::Vector2f(600.f, 100.f), sf::Vector2f());
+            float xpos = 50.f + 850.f * (rand() / (static_cast<float>(RAND_MAX)));
+            auto bomb = new Bomb(this, sf::Vector2f(xpos, 100.f), sf::Vector2f());
             entities.push_back(bomb);
             simulation.addTrigger(bomb->trigger);
         }

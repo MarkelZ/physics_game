@@ -44,4 +44,10 @@ namespace game
     public:
         BreakParticle(Game *game, sf::Vector2f p1, sf::Vector2f p2);
     };
+
+    class ExplosionParticle : public ParticleEffect
+    {
+    public:
+        ExplosionParticle(Game *game, sf::Vector2f position);
+    };
 }
