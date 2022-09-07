@@ -5,7 +5,7 @@
 namespace game
 {
     Bomb::Bomb(Game *game, sf::Vector2f position, sf::Vector2f velocity)
-        : Entity(game), circle(RADIUS, 16), isExploded(false), power(1000.f)
+        : Entity(game), circle(RADIUS, 16), isExploded(false), power(2000.f)
     {
         trigger = std::make_shared<physics::Trigger>(position, velocity);
         trigger->onCollision = std::bind(&Bomb::explode, this);
@@ -41,20 +41,16 @@ namespace game
 
         // Spawn explosion particle
         auto pos = trigger->position;
-        auto explosion = new ExplosionParticle(game, sf::Vector2f(pos.x, pos.y));
+        auto explosion = new ExplosionParticle(game, pos);
         game->addEntity(explosion);
-        // game->addDynamicObject(explosion->dynObject);
+        game->addDynamicObject(explosion->dynObject);
 
-        // Push al RigidLinks
-        // for (auto l : game->simulation.links)
-        // {
-        //     // push
-        // }
+        // Push all vertices
         for (auto v : game->simulation.vertices)
         {
             auto diff = v->position - pos;
             auto dist2 = vecm::len2(diff);
-            sf::Vector2f push = diff * (power / (0.01f + dist2));
+            sf::Vector2f push = diff * (power / (1.f + dist2));
             v->push(push);
         }
     }

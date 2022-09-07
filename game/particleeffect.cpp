@@ -103,10 +103,11 @@ namespace game
         : ParticleEffect(game, NULL, sf::Color(196, 128, 0, 255), sf::Color(255, 255, 255, 255), 1.f, 64.f)
     {
         maxAge = 0.125f;
-        // :(
         dynObject = std::make_shared<physics::DynamicObject>(
             sf::Vector2f(position.x - 2 * circle.getRadius(), position.y - 2 * circle.getRadius()));
         dynObject->gravityMul = 0.f;
         circle.setPointCount(24);
+        circle.setPosition(position);
+        circle.setFillColor(color1);
     }
 }
