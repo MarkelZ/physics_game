@@ -4,6 +4,16 @@
 
 namespace game
 {
+    Ragdoll::Ragdoll(Game *game, sf::Vector2f position)
+        : Entity(game), shape(std::make_shared<physics::Shape>("models/ragdoll.toml")),
+          age(0.f), maxAge(DEFAULT_MAX_AGE)
+    {
+        shape->moveTo(position);
+        for (auto l : shape->links)
+        {
+            l->onLinkBroken = std::bind(&Ragdoll::onLinkBroken, this, std::placeholders::_1);
+        }
+    }
 
     void Ragdoll::onLinkBroken(std::shared_ptr<physics::RigidLink> link)
     {
@@ -16,19 +26,21 @@ namespace game
         }
     }
 
-    Ragdoll::Ragdoll(Game *game, sf::Vector2f position)
-        : Entity(game), shape(std::make_shared<physics::Shape>("models/ragdoll.toml"))
-    {
-        shape->moveTo(position);
-        for (auto l : shape->links)
-        {
-            l->onLinkBroken = std::bind(&Ragdoll::onLinkBroken, this, std::placeholders::_1);
-        }
-    }
-
     void Ragdoll::update(float tdelta)
     {
-        // despawn if too much damage / time
+        age += tdelta;
+        if (age >= maxAge)
+        {
+            game->popEntity(this);
+            for (auto l : shape->links)
+            {
+                game->simulation.popLink(l);
+            }
+            for (auto v : shape->vertices)
+            {
+                game->simulation.popVertex(v);
+            }
+        }
     }
 
     void Ragdoll::draw(sf::RenderWindow &window) const

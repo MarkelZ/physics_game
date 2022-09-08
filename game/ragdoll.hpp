@@ -20,5 +20,9 @@ namespace game
 
     private:
         void onLinkBroken(std::shared_ptr<physics::RigidLink> link);
+        float age;
+        float maxAge;
+
+        static constexpr float DEFAULT_MAX_AGE = 10.f; // despawn after 10 seconds by default
     };
 }
