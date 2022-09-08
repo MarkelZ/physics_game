@@ -53,5 +53,8 @@ namespace game
             sf::Vector2f push = diff * (power / (1.f + dist2));
             v->push(push);
         }
+
+        game->popEntity(this);
+        game->simulation.popTrigger(trigger);
     }
 }
