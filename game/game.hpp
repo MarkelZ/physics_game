@@ -33,9 +33,11 @@ namespace game
         sc::_V2::system_clock::time_point startTime;
         void restartTimer();
         float elapsedTime();
+        void removeEntities();
 
     public:
         std::vector<Entity *> entities;
+        std::vector<Entity *> toRemove;
 
         physics::Simulation simulation;
         utils::Debugwriter debugwriter;
@@ -46,6 +48,7 @@ namespace game
         void addDynamicObject(std::shared_ptr<physics::DynamicObject> dynObj);
         void addShape(physics::Shape &shape);
         void addEntity(Entity *entity);
+        void popEntity(Entity *entity);
         int getWidth();
         int getHeight();
     };

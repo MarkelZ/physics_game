@@ -31,8 +31,9 @@ namespace game
 
         if (age >= maxAge)
         {
-            // TODO: pop from simulation and free memory
-            return;
+            game->popEntity(this);
+            game->simulation.popDynmaicObject(dynObject);
+            delete this;
         }
     }
 

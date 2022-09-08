@@ -28,6 +28,43 @@ namespace physics
         triggers.push_back(trigger);
     }
 
+    void Simulation::popVertex(std::shared_ptr<Vertex> vertex)
+    {
+        remVertices.push_back(vertex);
+    }
+    void Simulation::popLink(std::shared_ptr<RigidLink> link)
+    {
+        remLinks.push_back(link);
+    }
+    void Simulation::popDynmaicObject(std::shared_ptr<DynamicObject> dynobj)
+    {
+        remDynObjs.push_back(dynobj);
+    }
+    void Simulation::popTrigger(std::shared_ptr<Trigger> trigger)
+    {
+        remTriggers.push_back(trigger);
+    }
+
+    template <typename T>
+    void removeAndClear(std::vector<T> &vec, std::vector<T> &toRemove)
+    {
+        for (auto x : toRemove)
+        {
+            auto ind = std::find(vec.begin(), vec.end(), x);
+            if (ind != vec.end())
+                vec.erase(ind);
+        }
+        toRemove.clear();
+    }
+
+    void Simulation::removeElems()
+    {
+        removeAndClear(vertices, remVertices);
+        removeAndClear(links, remLinks);
+        removeAndClear(dynobjects, remDynObjs);
+        removeAndClear(triggers, remTriggers);
+    }
+
     void Simulation::update(float tdelta)
     {
         updateDynamicObjects(tdelta);
@@ -39,6 +76,8 @@ namespace physics
             constrainVertices(tdelta);
         }
         checkTriggers(tdelta);
+
+        removeElems();
     }
 
     void Simulation::updateDynamicObjects(float tdelta)

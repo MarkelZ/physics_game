@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include <cstdlib>
+#include <algorithm>
 
 namespace game
 {
@@ -39,6 +40,22 @@ namespace game
     void Game::addEntity(Entity *entity)
     {
         entities.push_back(entity);
+    }
+
+    void Game::popEntity(Entity *entity)
+    {
+        toRemove.push_back(entity);
+    }
+
+    void Game::removeEntities()
+    {
+        for (auto entity : toRemove)
+        {
+            auto ind = std::find(entities.begin(), entities.end(), entity);
+            if (ind != entities.end())
+                entities.erase(ind);
+        }
+        toRemove.clear();
     }
 
     int Game::getWidth() { return width; }
@@ -101,6 +118,7 @@ namespace game
         {
             e->update(SPT);
         }
+        removeEntities();
     }
 
     void Game::draw()
@@ -117,11 +135,13 @@ namespace game
         // Debug text
         float drawTime = elapsedTime() - updateTime;
         debugwriter.clear();
-        debugwriter.stream << "Press D or Right to spawn ragdoll.\n";
-        debugwriter.stream << "Press W or Up to spawn particles.\n";
+        debugwriter.stream << "D spawn ragdoll. ";
+        debugwriter.stream << "A spawn bomb. ";
+        debugwriter.stream << "W spawn particles.\n";
 
         debugwriter.stream << "RigidLinks:   " << simulation.links.size() << "; ";
         debugwriter.stream << "Vertices:   " << simulation.vertices.size() << "\n";
+        debugwriter.stream << "Entities:   " << entities.size() << "; ";
         debugwriter.stream << "Dynamic obj.:   " << simulation.dynobjects.size() << "; ";
         debugwriter.stream << "Triggers:   " << simulation.triggers.size() << "\n";
 

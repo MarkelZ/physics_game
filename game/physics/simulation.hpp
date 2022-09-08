@@ -29,9 +29,18 @@ namespace physics
         void addLink(std::shared_ptr<RigidLink> link);
         void addDynamicObject(std::shared_ptr<DynamicObject> dynobj);
         void addTrigger(std::shared_ptr<Trigger> trigger);
+        void popVertex(std::shared_ptr<Vertex> vertex);
+        void popLink(std::shared_ptr<RigidLink> link);
+        void popDynmaicObject(std::shared_ptr<DynamicObject> dynobj);
+        void popTrigger(std::shared_ptr<Trigger> trigger);
 
     private:
         int upd_iters = 2;
+
+        std::vector<std::shared_ptr<DynamicObject>> remDynObjs;
+        std::vector<std::shared_ptr<Vertex>> remVertices;
+        std::vector<std::shared_ptr<RigidLink>> remLinks;
+        std::vector<std::shared_ptr<Trigger>> remTriggers;
 
         void updateDynamicObjects(float tdelta);
         void updateVertices(float tdelta);
@@ -40,5 +49,7 @@ namespace physics
         void updateLinks(float tdelta);
         void constrainVertices(float tdelta);
         void checkTriggers(float tdelta);
+
+        void removeElems();
     };
 }
