@@ -9,6 +9,7 @@
 #include "physics/simulation.hpp"
 #include "ragdoll.hpp"
 #include "bomb.hpp"
+#include "player.hpp"
 
 namespace game
 {
@@ -25,7 +26,6 @@ namespace game
         const float SPT = 1.0f / TPS;
 
         std::unique_ptr<sf::RenderWindow> window;
-        utils::Input input;
 
         void update();
         void draw();
@@ -36,11 +36,13 @@ namespace game
         void removeEntities();
 
     public:
+        Player *player;
         std::vector<Entity *> entities;
         std::vector<Entity *> toRemove;
 
         physics::Simulation simulation;
-        utils::Debugwriter debugwriter;
+        Debugwriter debugwriter;
+        Input input;
 
         Game(int width, int height);
         void run();

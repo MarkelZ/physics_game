@@ -2,7 +2,7 @@
 #include <sstream>
 #include <string>
 
-namespace utils
+namespace game
 {
     class Debugwriter
     {

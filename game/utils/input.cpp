@@ -2,7 +2,7 @@
 
 #include "iostream"
 
-namespace utils
+namespace game
 {
     constexpr Input::Action ACTIONS[] = {Input::Left, Input::Right, Input::Up, Input::Down, Input::A1, Input::A2};
     constexpr sf::Mouse::Button MOUSE_BUTTONS[] = {sf::Mouse::Button::Left, sf::Mouse::Button::Right, sf::Mouse::Button::Middle, sf::Mouse::Button::XButton1, sf::Mouse::Button::XButton2};
@@ -16,9 +16,9 @@ namespace utils
         actionKeys[Action::Right].push_back(sf::Keyboard::Key::D);
         actionKeys[Action::Up].push_back(sf::Keyboard::Key::Up);
         actionKeys[Action::Up].push_back(sf::Keyboard::Key::W);
-        actionKeys[Action::Up].push_back(sf::Keyboard::Key::Space);
         actionKeys[Action::Down].push_back(sf::Keyboard::Key::Down);
         actionKeys[Action::Down].push_back(sf::Keyboard::Key::S);
+        actionKeys[Action::A1].push_back(sf::Keyboard::Key::Space);
 
         for (Action action : ACTIONS)
         {

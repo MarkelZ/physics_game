@@ -16,6 +16,7 @@ namespace game
             sf::VideoMode(width, height), "Physics Demo",
             sf::Style::Titlebar | sf::Style::Close, settings);
         window->setFramerateLimit(TPS);
+        player = new Player(this, sf::Vector2f(100.f, 100.f));
     }
 
     void Game::run()
@@ -85,17 +86,7 @@ namespace game
         simulation.update(SPT);
 
         // Game stuff here
-        if (input.actionPressed(utils::Input::Action::Up))
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                auto p = new SparkParticle(this, sf::Vector2f(300.f, 300.f + i * 10), sf::Vector2f(1.f, 0.f));
-                entities.push_back(p);
-                simulation.addDynamicObject(p->dynObject);
-            }
-        }
-
-        if (input.actionPressed(utils::Input::Action::Right))
+        if (input.actionPressed(Input::Action::A1))
         {
             auto r = new Ragdoll(this, sf::Vector2f(0.f, 400.f));
             float speed = 1.f + 2.f * (rand() / (static_cast<float>(RAND_MAX)));
@@ -104,14 +95,6 @@ namespace game
             r->shape->vertices[0]->prevpos.x -= spin; // give some spin to ragdoll
             entities.push_back(r);
             simulation.addShape(*r->shape);
-        }
-
-        if (input.actionPressed(utils::Input::Action::Left))
-        {
-            float xpos = 50.f + 850.f * (rand() / (static_cast<float>(RAND_MAX)));
-            auto bomb = new Bomb(this, sf::Vector2f(xpos, 100.f), sf::Vector2f());
-            entities.push_back(bomb);
-            simulation.addTrigger(bomb->trigger);
         }
 
         for (auto e : entities)

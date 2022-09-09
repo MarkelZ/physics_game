@@ -4,6 +4,7 @@ add_executable(game
     entity.cpp
     game.cpp
     particleeffect.cpp
+    player.cpp
     ragdoll.cpp
     physics/dynamicobject.cpp
     physics/rigidlink.cpp

@@ -1,6 +1,6 @@
 #include "debugwriter.hpp"
 
-namespace utils
+namespace game
 {
     Debugwriter::Debugwriter(const char fontpath[], int fontsize, sf::Color color)
     {

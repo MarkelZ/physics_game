@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 
-namespace utils
+namespace game
 {
     class Input
     {
