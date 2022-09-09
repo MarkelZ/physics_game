@@ -101,6 +101,7 @@ namespace physics
         for (auto t : triggers)
         {
             updateDynamicObject(tdelta, t);
+            t->area->moveTo(t->position);
         }
     }
 
@@ -181,7 +182,7 @@ namespace physics
                 //     t->onCollision(l);
                 // }
 
-                if (t->area->IsTouching(l))
+                if (t->area->isTouching(l))
                 {
                     t->onCollision(l);
                 }

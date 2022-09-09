@@ -4,7 +4,7 @@
 
 namespace physics
 {
-    bool CircleArea::IsTouching(std::shared_ptr<Vertex> vertex) const
+    bool CircleArea::isTouching(std::shared_ptr<Vertex> vertex) const
     {
         sf::Vector2f diff = position - vertex->position;
         return vecm::dot(diff, diff) <= radius2;
@@ -18,7 +18,7 @@ namespace physics
         return std::abs(cross) / 2.f;
     }
 
-    bool CircleArea::IsTouching(std::shared_ptr<RigidLink> link) const
+    bool CircleArea::isTouching(std::shared_ptr<RigidLink> link) const
     {
         // https://www.baeldung.com/cs/circle-line-segment-collision-detection
         auto P = link->v1.position;
@@ -43,6 +43,11 @@ namespace physics
         }
 
         return min_dist <= radius && max_dist >= radius;
+    }
+
+    void CircleArea::moveTo(sf::Vector2f position)
+    {
+        this->position = position;
     }
 
     sf::Vector2f CircleArea::getPosition()
