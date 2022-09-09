@@ -121,9 +121,9 @@ namespace game
         // Debug text
         float drawTime = elapsedTime() - updateTime;
         debugwriter.clear();
-        debugwriter.stream << "D spawn ragdoll. ";
-        debugwriter.stream << "A spawn bomb. ";
-        debugwriter.stream << "W spawn particles.\n";
+        debugwriter.stream << "WASD to move. ";
+        debugwriter.stream << "Space to spawn ragdoll. ";
+        debugwriter.stream << "Left click to shoot.\n";
 
         debugwriter.stream << "RigidLinks:   " << simulation.links.size() << "; ";
         debugwriter.stream << "Vertices:   " << simulation.vertices.size() << "\n";
