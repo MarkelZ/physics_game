@@ -19,6 +19,8 @@ namespace game
 
     void Player::update(float tdelta)
     {
+        auto size = rect.getSize();
+
         // Movement
         if (game->input.actionDown(Input::Action::Up))
         {
@@ -38,15 +40,15 @@ namespace game
         {
             auto mousepos = sf::Vector2f(game->input.getMouseCurrentPosition());
             auto velocity = 0.1f * (mousepos - dynobj->position);
-            auto size = rect.getSize();
-            auto position = sf::Vector2f(dynobj->position.x + size.x / 2.f,
+            auto position = sf::Vector2f(dynobj->position.x,
                                          dynobj->position.y - size.y / 2.f);
             auto bomb = new Bomb(game, position, velocity);
             game->addEntity(bomb);
             game->simulation.addTrigger(bomb->trigger);
         }
 
-        rect.setPosition(sf::Vector2f(dynobj->position.x, dynobj->position.y - rect.getSize().y));
+        rect.setPosition(sf::Vector2f(dynobj->position.x - size.x / 2.f,
+                                      dynobj->position.y - size.y));
     }
 
     void Player::draw(sf::RenderWindow &window) const
