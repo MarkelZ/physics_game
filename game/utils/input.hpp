@@ -35,11 +35,10 @@ namespace game
         bool mouseButtonUp(sf::Mouse::Button button);
         bool mouseButtonPressed(sf::Mouse::Button button);
         bool mouseButtonReleased(sf::Mouse::Button button);
+        void setWindow(sf::RenderWindow *window);
         sf::Vector2i getMouseCurrentPosition();
         sf::Vector2i getMousePreviousPosition();
         sf::Vector2i mouseMoveVector();
-
-        // TODO: mouse
 
     private:
         std::map<sf::Keyboard::Key, std::pair<bool, bool>> keyStates;
@@ -48,6 +47,7 @@ namespace game
         std::map<sf::Mouse::Button, std::pair<bool, bool>> mouseButtonStates;
         sf::Vector2i mouseCurrentPosition;
         sf::Vector2i mousePreviousPosition;
+        sf::RenderWindow *window;
 
         // static constexpr Input::Action ACTIONS[] = {Action::Left, Action::Right, Action::Up, Action::Down, Action::A1, Action::A2};
     };

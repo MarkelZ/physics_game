@@ -25,7 +25,7 @@ namespace game
         const int TPS = 60;
         const float SPT = 1.0f / TPS;
 
-        std::unique_ptr<sf::RenderWindow> window;
+        sf::RenderWindow *window;
 
         void update();
         void draw();

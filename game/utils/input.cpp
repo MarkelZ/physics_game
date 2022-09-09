@@ -29,6 +29,11 @@ namespace game
         }
     }
 
+    void Input::setWindow(sf::RenderWindow *window)
+    {
+        this->window = window;
+    }
+
     // States of the relevant keys are stored in the hashmap
     // This way we have a consistent representation of the keyboard
     void Input::update()
@@ -45,7 +50,7 @@ namespace game
             mouseButtonStates[button].first = sf::Mouse::isButtonPressed(button);
         }
         mousePreviousPosition.x, mousePreviousPosition.y = mouseCurrentPosition.x, mouseCurrentPosition.y;
-        mouseCurrentPosition = sf::Mouse::getPosition();
+        mouseCurrentPosition = sf::Mouse::getPosition(*window);
     }
 
     // A key is down if it is currently being pressed by the user

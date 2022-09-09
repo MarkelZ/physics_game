@@ -12,10 +12,13 @@ namespace game
         sf::ContextSettings settings;
         settings.antialiasingLevel = 8;
 
-        window = std::make_unique<sf::RenderWindow>(
+        window = new sf::RenderWindow(
             sf::VideoMode(width, height), "Physics Demo",
             sf::Style::Titlebar | sf::Style::Close, settings);
         window->setFramerateLimit(TPS);
+
+        input.setWindow(window);
+
         player = new Player(this, sf::Vector2f(100.f, 100.f));
     }
 
