@@ -12,6 +12,7 @@ namespace game
         trigger->area = new physics::CircleArea(position, RADIUS);
 
         circle.setFillColor(sf::Color(255, 128, 255, 255));
+        circle.setPosition(position);
     }
 
     void Bomb::update(float tdelta)

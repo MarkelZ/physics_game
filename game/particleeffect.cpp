@@ -84,6 +84,9 @@ namespace game
         dynObject->gravityMul = 0.1f;
 
         maxAge = 0.25f;
+
+        circle.setPosition(position);
+        circle.setFillColor(color1);
     }
 
     BreakParticle::BreakParticle(Game *game, sf::Vector2f p1, sf::Vector2f p2)
@@ -103,6 +106,9 @@ namespace game
 
         float saturation2 = rfloat(0.f, 1.f);
         color2 = colmul(saturation2, color1, false);
+
+        circle.setPosition(position);
+        circle.setFillColor(color1);
     }
 
     ExplosionParticle::ExplosionParticle(Game *game, sf::Vector2f position)
@@ -129,6 +135,9 @@ namespace game
         color1 = colmul(saturation, sf::Color(0, 255, 0, 255), false);
 
         maxAge = 0.25f;
+
+        circle.setPosition(position);
+        circle.setFillColor(color1);
     }
 
     SmokeParticle::SmokeParticle(Game *game, sf::Vector2f position)
@@ -144,5 +153,8 @@ namespace game
         float saturation = rfloat(0.85f, 1.f);
         color1 = colmul(saturation, sf::Color(255, 255, 255, 255), false);
         maxAge = 1.5f;
+
+        circle.setPosition(position);
+        circle.setFillColor(color1);
     }
 }
