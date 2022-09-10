@@ -64,25 +64,30 @@ namespace game
         return a + (b - a) * (rand() / (static_cast<float>(RAND_MAX)));
     }
 
-    sf::Vector2f addBias(sf::Vector2f direction, float angle)
+    sf::Vector2f addBias(sf::Vector2f direction, float dtheta)
     {
-        // ...
-        return direction;
+        auto theta = std::atan2(direction.y, direction.x);
+        theta += rfloat(-dtheta, dtheta);
+        return sf::Vector2f(std::cos(theta), std::sin(theta));
     }
 
     SparkParticle::SparkParticle(Game *game, sf::Vector2f position, sf::Vector2f direction)
-        : ParticleEffect(game, NULL, sf::Color::Black, sf::Color(0, 0, 0, 255), 1.f, rfloat(4.f, 8.f))
+        : ParticleEffect(game, NULL, sf::Color::Black, sf::Color(0, 0, 0, 255), 1.f, rfloat(1.5f, 3.f))
     {
-        auto speed = rfloat(15.f, 20.f);
-        auto velocity = speed * addBias(direction, 0.1f);
+        auto speed = rfloat(5.f, 20.f);
+        auto velocity = speed * addBias(direction, 0.4f);
         dynObject = std::make_shared<physics::DynamicObject>(position, velocity);
 
         float saturation = rfloat(0.5f, 1.f);
-        color1 = colmul(saturation, sf::Color(160, 0, 255, 255), false);
+        color1 = colmul(saturation, sf::Color(255, 255, 128, 255), false);
+        color2 = sf::Color::White;
+        dynObject->gravityMul = 0.1f;
+
+        maxAge = 0.25f;
     }
 
     BreakParticle::BreakParticle(Game *game, sf::Vector2f p1, sf::Vector2f p2)
-        : ParticleEffect(game, NULL, sf::Color(255, 64, 64, 255), sf::Color(0, 0, 0, 255), 1.f, rfloat(1.f, 2.f))
+        : ParticleEffect(game, NULL, sf::Color(255, 64, 64, 255), sf::Color(0, 0, 0, 255), 1.f, rfloat(2.f, 4.f))
     {
         // pick random point between p1 and p2
         float alpha = rfloat(0.f, 1.f);
@@ -110,5 +115,34 @@ namespace game
         circle.setPointCount(24);
         circle.setPosition(position);
         circle.setFillColor(color1);
+    }
+
+    BoostParticle::BoostParticle(Game *game, sf::Vector2f position)
+        : ParticleEffect(game, NULL, sf::Color::Black, sf::Color::Black, 1.f, rfloat(4.f, 8.f))
+    {
+        auto radius = circle.getRadius();
+        sf::Vector2f velocity(rfloat(-10.f, 10.f), rfloat(2.5f, 5.f));
+        dynObject = std::make_shared<physics::DynamicObject>(
+            sf::Vector2f(position.x - radius, position.y - radius), velocity);
+
+        float saturation = rfloat(0.85f, 1.f);
+        color1 = colmul(saturation, sf::Color(0, 255, 0, 255), false);
+
+        maxAge = 0.25f;
+    }
+
+    SmokeParticle::SmokeParticle(Game *game, sf::Vector2f position)
+        : ParticleEffect(game, NULL, sf::Color::White, sf::Color::Black, 1.f, rfloat(4.f, 16.f))
+    {
+        auto angle = rfloat(0.f, M_PI * 2.f);
+        auto speed = rfloat(2.f, 8.f);
+        auto velocity = speed * sf::Vector2f(std::cos(angle), std::sin(angle));
+        dynObject = std::make_shared<physics::DynamicObject>(position, velocity);
+        dynObject->gravityMul = -0.125f;
+        dynObject->airFriction = 0.95f;
+
+        float saturation = rfloat(0.85f, 1.f);
+        color1 = colmul(saturation, sf::Color(255, 255, 255, 255), false);
+        maxAge = 1.5f;
     }
 }

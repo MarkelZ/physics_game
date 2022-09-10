@@ -5,7 +5,7 @@
 namespace game
 {
 
-    Player::Player(Game *game, sf::Vector2f position) : Entity(game), rect(sf::Vector2f(64.f, 64.f))
+    Player::Player(Game *game, sf::Vector2f position) : Entity(game), rect(sf::Vector2f(32.f, 48.f))
     {
         dynobj = std::make_shared<physics::Vertex>(position);
         dynobj->elasticity = 0.25f;
@@ -25,6 +25,12 @@ namespace game
         if (game->input.actionDown(Input::Action::Up))
         {
             dynobj->push(sf::Vector2f(0.f, -2.5f));
+            for (int _ = 0; _ < 2; _++)
+            {
+                auto particle = new BoostParticle(game, dynobj->position);
+                game->addEntity(particle);
+                game->simulation.addDynamicObject(particle->dynObject);
+            }
         }
         if (game->input.actionDown(Input::Action::Right))
         {
@@ -38,13 +44,25 @@ namespace game
         // Shoot
         if (game->input.mouseButtonPressed(sf::Mouse::Button::Left))
         {
-            auto mousepos = sf::Vector2f(game->input.getMouseCurrentPosition());
-            auto velocity = 0.1f * (mousepos - dynobj->position);
+            // Spawn bomb
+            auto direction = sf::Vector2f(game->input.getMouseCurrentPosition()) - dynobj->position;
+            auto velocity = 0.1f * direction;
             auto position = sf::Vector2f(dynobj->position.x,
                                          dynobj->position.y - size.y / 2.f);
             auto bomb = new Bomb(game, position, velocity);
             game->addEntity(bomb);
             game->simulation.addTrigger(bomb->trigger);
+
+            // Spawn spark particles
+            for (int _ = 0; _ < 8; _++)
+            {
+                auto particle = new SparkParticle(game, dynobj->position, direction);
+                game->addEntity(particle);
+                game->simulation.addDynamicObject(particle->dynObject);
+            }
+
+            // Gun knockback
+            dynobj->push(-0.15f * velocity);
         }
 
         rect.setPosition(sf::Vector2f(dynobj->position.x - size.x / 2.f,

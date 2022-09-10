@@ -50,4 +50,16 @@ namespace game
     public:
         ExplosionParticle(Game *game, sf::Vector2f position);
     };
+
+    class BoostParticle : public ParticleEffect
+    {
+    public:
+        BoostParticle(Game *game, sf::Vector2f position);
+    };
+
+    class SmokeParticle : public ParticleEffect
+    {
+    public:
+        SmokeParticle(Game *game, sf::Vector2f position);
+    };
 }

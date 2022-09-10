@@ -45,6 +45,14 @@ namespace game
         game->addEntity(explosion);
         game->addDynamicObject(explosion->dynObject);
 
+        // Sapwn smoke particles
+        for (int _ = 0; _ < 48; _++)
+        {
+            auto particle = new SmokeParticle(game, trigger->position);
+            game->addEntity(particle);
+            game->simulation.addDynamicObject(particle->dynObject);
+        }
+
         // Push all vertices
         for (auto v : game->simulation.vertices)
         {
@@ -54,6 +62,7 @@ namespace game
             v->push(push);
         }
 
+        // Delete bomb entity
         game->popEntity(this);
         game->simulation.popTrigger(trigger);
     }
