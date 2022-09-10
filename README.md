@@ -4,6 +4,8 @@
 
 This is a game that uses a very simple physics engine that I made.
 
+![screenshot](thumbnail.png)
+
 ## Dependencies
 
 - SFML 2.5 - install using following command:
