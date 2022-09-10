@@ -33,11 +33,13 @@ namespace game
         sc::_V2::system_clock::time_point startTime;
         void restartTimer();
         float elapsedTime();
+        void addEntities();
         void removeEntities();
 
     public:
         Player *player;
         std::vector<Entity *> entities;
+        std::vector<Entity *> toAdd;
         std::vector<Entity *> toRemove;
 
         physics::Simulation simulation;

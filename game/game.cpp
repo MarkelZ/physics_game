@@ -43,12 +43,18 @@ namespace game
 
     void Game::addEntity(Entity *entity)
     {
-        entities.push_back(entity);
+        toAdd.push_back(entity);
     }
 
     void Game::popEntity(Entity *entity)
     {
         toRemove.push_back(entity);
+    }
+
+    void Game::addEntities()
+    {
+        entities.insert(entities.begin(), toAdd.begin(), toAdd.end());
+        toAdd.clear();
     }
 
     void Game::removeEntities()
@@ -104,6 +110,8 @@ namespace game
         {
             e->update(SPT);
         }
+
+        addEntities();
         removeEntities();
     }
 
